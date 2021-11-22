@@ -71,14 +71,16 @@ bool Galil::DigitalBitInput(uint8_t bit)
 // command executed correctly. 1 = succesful. NOT AUTOMARKED 
 bool Galil::CheckSuccessfulWrite()
 {	
-	return false;
+	return Bytes_returned;
 };
 
 // ANALOG FUNCITONS
 // Read Analog channel and return voltage
 float Galil::AnalogInput(uint8_t channel)
 {
-	return 0.0;
+	sprintf_s(Command, "MG @AO[%u];", channel);
+	Functions->GCommand(g, Command, ReadBuffer, sizeof(ReadBuffer), &Bytes_returned);
+	return strtof(ReadBuffer, NULL);
 };
 
 // Write to any channel of the Galil, send voltages as

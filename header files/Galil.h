@@ -80,5 +80,6 @@ class Galil {
 		double ControlParameters[3];	// Contains the controller gain values: K_p, K_i, K_d in that order 
 		int setPoint;					// Control Setpoint
 	public:
-		char Command[128];
+		char Command[128];				// Commands sent to Galil	
+		GSize Bytes_returned;			// Stores bytes returned
 };
