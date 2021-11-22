@@ -15,7 +15,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Galilmain.cpp">
+    <ClCompile Include="Galil.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SendVariable.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
