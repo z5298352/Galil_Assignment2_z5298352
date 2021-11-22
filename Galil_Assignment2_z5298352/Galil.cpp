@@ -5,15 +5,24 @@
 #include <bitset>
 #include <string>
 // Default constructor. Initialize variables, open Galil connection and allocate memory. NOT AUTOMARKED
+
+
 // Constructor with EmbeddedFunciton initialization
 Galil::Galil(EmbeddedFunctions* Funcs, GCStringIn address)
 {
-
+	Functions = Funcs;
+	g = 0;
+	Functions->GOpen(address, &g);
 };
 
 // Default destructor. Deallocate memory and close Galil connection. NOT AUTOMARKED
 Galil::~Galil()
 {
+	if (g)
+	{
+		GClose(g);
+	}
+	delete Functions;
 
 };
 
@@ -61,7 +70,7 @@ bool Galil::DigitalBitInput(uint8_t bit)
 // Check the string response from the Galil to check that the last 
 // command executed correctly. 1 = succesful. NOT AUTOMARKED 
 bool Galil::CheckSuccessfulWrite()
-{
+{	
 	return false;
 };
 
@@ -108,19 +117,19 @@ void Galil::setSetPoint(int s)
 // Set the proportional gain of the controller used in controlLoop()
 void Galil::setKp(double gain)
 {
-	return;
+	ControlParameters[0] = gain;
 };
 
 // Set the integral gain of the controller used in controlLoop()
 void Galil::setKi(double gain)
 {
-	return;
+	ControlParameters[1] = gain;
 };
 
 // Set the derivative gain of the controller used in controlLoop()
 void Galil::setKd(double gain)
 {
-	return;
+	ControlParameters[2] = gain;
 };
 
 //// Run the control loop. ReadEncoder() is the input to the loop. The motor is the output
